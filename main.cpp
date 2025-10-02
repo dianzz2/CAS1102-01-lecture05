@@ -5,8 +5,31 @@
 #include "third_party/stb/stb_image.h"
 
 void decode_steganography(int image_data[], int data_size, std::string key) {
-
     int currentIndex = 1000;
+    int key_index = 0;
+    int key_length = key.length();
+
+    while (true) {
+        if (currentIndex >= data_size) break;
+
+        int jump = (int)key[key_index % key_length];
+        if (jump == 0) break;
+
+        currentIndex += jump;
+        if (currentIndex >= data_size) break;
+
+        int value = image_data[currentIndex];
+        if (value == 0) break;
+
+        std::cout << (char)value;
+
+        key_index++;
+    }
+
+    std::cout << std::endl;
+}
+
+
 
     // TODO: Implement the solve_steganography function.
     /**
@@ -28,7 +51,7 @@ void decode_steganography(int image_data[], int data_size, std::string key) {
      * - If the value is 0, stop the loop. Otherwise, cast the value to a `char` and print it.
      */
 
-}
+
 
 
 // DO NOT EDIT THE MAIN FUNCTION
